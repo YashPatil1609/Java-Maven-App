@@ -16,11 +16,10 @@ pipeline{
                 }
             }
         }
-        stage("Test"){
-            
+        stage("Build Image"){
             steps{
                 script{
-                    gv.testApp()
+                    gv.buildImage()
                 }
             }
         }
