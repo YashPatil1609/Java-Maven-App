@@ -34,7 +34,7 @@ pipeline{
                         sh "docker build -t yashpatil16/myapp:${env.IMAGE_VERSION} ."
                         sh "echo $PASS | docker login -u $USER --password-stdin"
                         sh "docker push yashpatil16/myapp:${env.IMAGE_VERSION}"
-    }
+                        }
                 }
                 
             }
@@ -44,5 +44,24 @@ pipeline{
                 echo "Deploying the project..."
             }
         }
-    }
+        stage("Commiting version update"){
+            steps{
+                script{
+                    withCredentials([usernamePassword(credentialsId: 'github-PAT', usernameVariable: 'USER', passwordVariable: 'PASS')]){
+                        sh 'git config --global user.email "jenkins@example.com"'
+                        sh 'git config --global user.name "jenkins"'
+
+                        sh 'git remote set-url origin https://${USER}:${PASS}@github.com/YashPatil1609/Java-Maven-App.git'
+
+                
+                        sh 'git add .'
+                        sh 'git commit -m "Incremented application versions"'
+
+                
+                        sh 'git push origin HEAD:Version-Increment'
+                    }
+                }
+            }
+        }
+        }
 }
