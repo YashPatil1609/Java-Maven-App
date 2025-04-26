@@ -1,3 +1,6 @@
+#!/usr/bin/env groovy
+
+
 def buildApp(){
     echo "Building the project..."
     sh 'mvn package' 
