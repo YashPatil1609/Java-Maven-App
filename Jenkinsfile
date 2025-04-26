@@ -9,7 +9,7 @@ pipeline{
         stage("Test"){
             when{
                 expression { 
-                     env.BRANCH_NAME == 'main' }
+                    BRANCH_NAME == 'main' }
             }
             steps{
                 echo "Running tests..."
